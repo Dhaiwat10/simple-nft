@@ -5,6 +5,10 @@
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
 
+const TOKEN_URI =
+  "https://gateway.pinata.cloud/ipfs/QmPf2x91DoemnhXSZhGDP8TX9Co8AScpvFzTuFt9BGAoBY";
+const MINT_COST = ethers.utils.parseEther("0.001");
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -14,12 +18,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const SimpleNFT = await ethers.getContractFactory("SimpleNFT");
+  const simpleNFT = await SimpleNFT.deploy(TOKEN_URI, MINT_COST);
 
-  await greeter.deployed();
+  await simpleNFT.deployed();
 
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("SimpleNFT deployed to:", simpleNFT.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
